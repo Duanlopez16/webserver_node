@@ -2,6 +2,7 @@ import express from "express";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import hbs from 'hbs';
+import 'dotenv/config'
 
 //dir_name
 const __filename = fileURLToPath(
@@ -9,7 +10,7 @@ const __filename = fileURLToPath(
 const __dirname = dirname(__filename);
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
 //handlebars
 app.set('View engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials');
@@ -43,4 +44,6 @@ app.get('*', (req, res) => {
     res.render('404.hbs');
 });
 
-app.listen(port)
+app.listen(port, () => {
+    console.log(`listening at http://localhost:${port}/`);
+})
